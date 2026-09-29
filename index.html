@@ -29,22 +29,36 @@
             padding-bottom: 90px;
         }
 
-        /* Header עם תמונת רקע נקייה */
+        /* Header עם לוגו משטרת ישראל ותמונת רקע */
         header {
             position: relative;
             background: linear-gradient(rgba(0, 43, 73, 0.88), rgba(0, 21, 40, 0.92)), 
                         url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
             color: white;
             text-align: center;
-            padding: 4rem 1rem 3rem;
+            padding: 3.5rem 1rem 2.5rem;
             border-bottom: 4px solid var(--police-gold);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 0.5rem;
+        }
+
+        .police-logo {
+            width: 65px;
+            height: auto;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
         }
 
         header h1 {
             font-size: 2.3rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            margin: 0;
         }
 
         header p {
@@ -358,7 +372,14 @@
 
         /* Responsive Styles */
         @media (max-width: 600px) {
-            header h1 { font-size: 1.6rem; }
+            .header-brand {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .police-logo {
+                width: 50px;
+            }
+            header h1 { font-size: 1.5rem; }
             header p { font-size: 1rem; }
             .container { padding: 0 0.8rem; }
             .info-card, .form-section { padding: 1.2rem; }
@@ -369,7 +390,10 @@
 <body>
 
     <header>
-        <h1>משטרת ישראל - תחנת נתיבות</h1>
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Israel_Police_Logo.svg" alt="לוגו משטרת ישראל" class="police-logo">
+            <h1>משטרת ישראל - תחנת נתיבות</h1>
+        </div>
         <p>מערך הגיוס וההתנדבות העירוני</p>
     </header>
 
