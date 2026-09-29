@@ -9,9 +9,9 @@
             --police-blue: #002b49;
             --police-accent: #0056b3;
             --police-gold: #c5a059;
-            --light-bg: #f4f6f9;
+            --light-bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #2c3e50;
+            --text-color: #1e293b;
             --border-color: #e2e8f0;
         }
 
@@ -26,28 +26,31 @@
             background-color: var(--light-bg);
             color: var(--text-color);
             line-height: 1.6;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
-        /* Header */
+        /* Header עם תמונת רקע נקייה */
         header {
-            background: linear-gradient(135deg, var(--police-blue) 0%, #001528 100%);
+            position: relative;
+            background: linear-gradient(rgba(0, 43, 73, 0.88), rgba(0, 21, 40, 0.92)), 
+                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
             color: white;
             text-align: center;
-            padding: 3rem 1rem 2rem;
+            padding: 4rem 1rem 3rem;
             border-bottom: 4px solid var(--police-gold);
-            position: relative;
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
         header p {
-            font-size: 1.2rem;
-            color: #d0dbe5;
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         /* Container */
@@ -62,8 +65,8 @@
             background: var(--card-bg);
             border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             border-right: 5px solid var(--police-gold);
         }
 
@@ -81,7 +84,7 @@
         }
 
         .value-box {
-            background: #f8fafc;
+            background: #f1f5f9;
             padding: 1.2rem;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -93,7 +96,7 @@
             font-size: 1.1rem;
         }
 
-        /* Option Selection Cards */
+        /* Option Selection Cards עם תמונות */
         .options-title {
             text-align: center;
             color: var(--police-blue);
@@ -111,26 +114,39 @@
         .option-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             border: 2px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         .option-card:hover {
             border-color: var(--police-accent);
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
         }
 
         .option-card h3 {
             color: var(--police-blue);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
         }
 
         .option-card p {
@@ -149,6 +165,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
+            width: 100%;
         }
 
         .btn-select:hover {
@@ -344,7 +361,7 @@
             header h1 { font-size: 1.6rem; }
             header p { font-size: 1rem; }
             .container { padding: 0 0.8rem; }
-            .info-card, .option-card, .form-section { padding: 1.2rem; }
+            .info-card, .form-section { padding: 1.2rem; }
             .banner-btn { font-size: 0.85rem; padding: 0.7rem 0.5rem; }
         }
     </style>
@@ -382,22 +399,28 @@
         <!-- Main Options Title -->
         <h2 class="options-title">בחרו את מסלול ההצטרפות שלכם</h2>
 
-        <!-- Options Cards -->
+        <!-- Options Cards עם תמונות -->
         <div class="options-grid">
             <div class="option-card" onclick="openForm('קבע')">
-                <div>
-                    <h3>גיוס לשירות קבע</h3>
-                    <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי ותרומה ישירה לביטחון המדינה.</p>
+                <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=600" alt="שירות קבע" class="card-img">
+                <div class="card-body">
+                    <div>
+                        <h3>גיוס לשירות קבע</h3>
+                        <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי ותרומה ישירה לביטחון המדינה.</p>
+                    </div>
+                    <button class="btn-select">להרשמה לגיוס קבע</button>
                 </div>
-                <button class="btn-select">להרשמה לגיוס קבע</button>
             </div>
 
             <div class="option-card" onclick="openForm('התנדבות')">
-                <div>
-                    <h3>הצטרפות להקמת מערך התנדבות</h3>
-                    <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך.</p>
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600" alt="מערך התנדבות" class="card-img">
+                <div class="card-body">
+                    <div>
+                        <h3>הצטרפות להקמת מערך התנדבות</h3>
+                        <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך.</p>
+                    </div>
+                    <button class="btn-select">להרשמה להתנדבות</button>
                 </div>
-                <button class="btn-select">להרשמה להתנדבות</button>
             </div>
         </div>
 
@@ -492,7 +515,6 @@
     </footer>
 
     <script>
-        // Open registration form for specific track
         function openForm(track) {
             const formSection = document.getElementById('formSection');
             const formTitle = document.getElementById('formTitle');
@@ -502,11 +524,9 @@
             formTitle.innerText = 'טופס הרשמה - מסלול ' + track;
             formSection.style.display = 'block';
 
-            // Scroll to form
             formSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Handle Form Submission
         function handleFormSubmit(event) {
             event.preventDefault();
 
@@ -522,7 +542,6 @@
 
             const newLead = { date, track, fullName, phone, city, idNumber, fileName, notes };
 
-            // Save to localStorage
             let leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
             leads.push(newLead);
             localStorage.setItem('police_netivot_leads', JSON.stringify(leads));
@@ -532,7 +551,6 @@
             document.getElementById('formSection').style.display = 'none';
         }
 
-        // Admin Login & Display
         function showAdminLogin() {
             const username = prompt('הכנס שם משתמש:');
             const password = prompt('הכנס סיסמה:');
@@ -572,7 +590,6 @@
             });
         }
 
-        // Export data to CSV (Google Sheets compatible)
         function exportToCSV() {
             const leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
             if (leads.length === 0) {
@@ -580,7 +597,7 @@
                 return;
             }
 
-            let csvContent = "\uFEFF"; // UTF-8 BOM for Hebrew support in Excel/Sheets
+            let csvContent = "\uFEFF";
             csvContent += "תאריך,מסלול,שם מלא,טלפון,עיר,תעודת זהות,שם קובץ קורות חיים,הערות\n";
 
             leads.forEach(l => {
