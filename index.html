@@ -29,7 +29,7 @@
             padding-bottom: 90px;
         }
 
-        /* Header עם לוגו משטרת ישראל ותמונת רקע */
+        /* Header */
         header {
             position: relative;
             background: linear-gradient(rgba(0, 43, 73, 0.88), rgba(0, 21, 40, 0.92)), 
@@ -48,10 +48,16 @@
             margin-bottom: 0.5rem;
         }
 
+        .police-logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .police-logo {
             width: 65px;
             height: auto;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.6));
         }
 
         header h1 {
@@ -110,7 +116,7 @@
             font-size: 1.1rem;
         }
 
-        /* Option Selection Cards עם תמונות */
+        /* Options */
         .options-title {
             text-align: center;
             color: var(--police-blue);
@@ -186,7 +192,7 @@
             background-color: var(--police-accent);
         }
 
-        /* Registration Form Section */
+        /* Form Section */
         .form-section {
             display: none;
             background: var(--card-bg);
@@ -370,7 +376,6 @@
             font-size: 0.8rem;
         }
 
-        /* Responsive Styles */
         @media (max-width: 600px) {
             .header-brand {
                 flex-direction: column;
@@ -391,7 +396,12 @@
 
     <header>
         <div class="header-brand">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Israel_Police_Logo.svg" alt="לוגו משטרת ישראל" class="police-logo">
+            <div class="police-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Israel_Police_Logo.svg/240px-Israel_Police_Logo.svg.png" 
+                     alt="לוגו משטרת ישראל" 
+                     class="police-logo"
+                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/1022/1022331.png';">
+            </div>
             <h1>משטרת ישראל - תחנת נתיבות</h1>
         </div>
         <p>מערך הגיוס וההתנדבות העירוני</p>
@@ -423,7 +433,7 @@
         <!-- Main Options Title -->
         <h2 class="options-title">בחרו את מסלול ההצטרפות שלכם</h2>
 
-        <!-- Options Cards עם תמונות -->
+        <!-- Options Cards -->
         <div class="options-grid">
             <div class="option-card" onclick="openForm('קבע')">
                 <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=600" alt="שירות קבע" class="card-img">
