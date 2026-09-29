@@ -1,657 +1,839 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>משטרת ישראל - תחנת נתיבות | גיוס והתנדבות</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Heebo -->
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        police: {
-                            50: '#e6f0ff',
-                            100: '#cce0ff',
-                            600: '#003366',
-                            700: '#002244',
-                            800: '#001933',
-                            900: '#000f1a',
-                            gold: '#d4af37',
-                            goldLight: '#f3e5ab'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Heebo', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Heebo', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
-        .police-gradient {
-            background: linear-gradient(135deg, #001933 0%, #002244 50%, #000f1a 100%);
-        }
-        .gold-gradient {
-            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(212, 175, 55, 0.2), 0 10px 10px -5px rgba(212, 175, 55, 0.1);
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #001933;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col selection:bg-police-gold selection:text-police-900">
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Assistant', sans-serif;
+    }
 
-    <!-- Top Bar & Navigation -->
-    <header class="police-gradient border-b border-police-gold/30 sticky top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="showSection('home')">
-                <div class="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shadow-md">
-                    <i class="fa-solid fa-shield-halved text-police-900 text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-lg sm:text-xl font-black tracking-wide text-white">משטרת ישראל</h1>
-                    <p class="text-xs text-police-gold font-medium">תחנת נתיבות • מרחב נגב</p>
-                </div>
-            </div>
+    body {
+        background-color: var(--light-bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        direction: rtl;
+    }
 
-            <!-- Quick Action Buttons -->
-            <div class="flex items-center space-x-2 sm:space-x-4 space-x-reverse">
-                <a href="https://wa.me/972504245200?text=שלום%2C%20אני%20מתעניין%20בגיוס/התנדבות%20למשטרת%20נתיבות" target="_blank" 
-                   class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-xs sm:text-sm flex items-center gap-2 shadow-lg transition transform hover:scale-105">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span class="hidden sm:inline">וואטסאפ נציג</span>
-                    <span class="sm:hidden">וואטסאפ</span>
-                </a>
-                <a href="tel:0504245200" 
-                   class="bg-police-gold hover:bg-police-goldLight text-police-900 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg transition transform hover:scale-105">
-                    <i class="fa-solid fa-phone-volume"></i>
-                    <span class="hidden sm:inline">חיוג מהיר</span>
-                    <span class="sm:hidden">חיוג</span>
-                </a>
-                <button onclick="openAdminModal()" 
-                        class="bg-slate-800 hover:bg-slate-700 border border-police-gold/40 text-police-gold px-3 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-lock text-xs"></i>
-                    <span>ניהול</span>
-                </button>
-            </div>
+    /* Top Bar */
+    .top-emergency-bar {
+        background-color: #b91c1c;
+        color: white;
+        text-align: center;
+        padding: 0.4rem 1rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Navbar */
+    nav {
+        background-color: var(--police-blue);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-icon {
+        font-size: 2.2rem;
+        color: var(--police-gold);
+    }
+
+    .logo-text h1 {
+        font-size: 1.3rem;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+
+    .logo-text span {
+        font-size: 0.85rem;
+        color: #94a3b8;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+    }
+
+    .nav-links a {
+        color: #f1f5f9;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: var(--police-gold);
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(rgba(10, 37, 64, 0.9), rgba(5, 20, 36, 0.92)), 
+                    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200') center/cover no-repeat;
+        color: white;
+        text-align: center;
+        padding: 4.5rem 1.5rem;
+        border-bottom: 5px solid var(--police-gold);
+    }
+
+    .hero h2 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+        max-width: 750px;
+        margin: 0 auto 2.5rem auto;
+        color: #cbd5e1;
+    }
+
+    /* Registration Track Selection Cards */
+    .tracks-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .track-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        border: 2px solid var(--police-gold);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .track-card:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+    }
+
+    .track-card i {
+        font-size: 3rem;
+        color: var(--police-gold);
+        margin-bottom: 1rem;
+    }
+
+    .track-card h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+        color: white;
+    }
+
+    .track-card p {
+        font-size: 1rem;
+        color: #e2e8f0;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-track {
+        display: inline-block;
+        background-color: var(--police-gold);
+        color: var(--police-dark);
+        padding: 0.8rem 1.8rem;
+        border-radius: 6px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+
+    .btn-track:hover {
+        background-color: var(--police-gold-hover);
+    }
+
+    /* Container */
+    .container {
+        max-width: 1100px;
+        margin: 3.5rem auto;
+        padding: 0 1.5rem;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .section-title h3 {
+        font-size: 2rem;
+        color: var(--police-blue);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+        font-weight: 800;
+    }
+
+    .section-title h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        width: 70px;
+        height: 4px;
+        background-color: var(--police-gold);
+        border-radius: 2px;
+    }
+
+    /* Values Grid */
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3.5rem;
+    }
+
+    .value-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 2.2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        border-top: 4px solid var(--police-accent);
+        transition: transform 0.2s;
+    }
+
+    .value-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .value-card i {
+        font-size: 2.5rem;
+        color: var(--police-accent);
+        margin-bottom: 1rem;
+    }
+
+    .value-card h4 {
+        font-size: 1.35rem;
+        color: var(--police-blue);
+        margin-bottom: 0.8rem;
+        font-weight: 700;
+    }
+
+    .value-card p {
+        color: var(--text-muted);
+        font-size: 0.98rem;
+    }
+
+    /* Form Modal Section */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    .modal-content {
+        background-color: white;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 650px;
+        padding: 2.5rem;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border-top: 6px solid var(--police-gold);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 1.2rem;
+        left: 1.2rem;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--text-muted);
+    }
+
+    .close-modal:hover {
+        color: var(--police-dark);
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 700;
+        color: var(--police-blue);
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 0.85rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: #f8fafc;
+        outline: none;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+        border-color: var(--police-accent);
+        background-color: white;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background-color: var(--police-blue);
+        color: white;
+        padding: 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--police-accent);
+    }
+
+    /* Admin Dashboard Styles */
+    .admin-dashboard {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        margin-top: 2rem;
+        display: none;
+    }
+
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--light-bg);
+        padding-bottom: 1rem;
+    }
+
+    .btn-export {
+        background-color: #16a34a;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-export:hover {
+        background-color: #15803d;
+    }
+
+    .submissions-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .submissions-table th, .submissions-table td {
+        padding: 0.8rem;
+        border: 1px solid var(--border-color);
+        text-align: right;
+        font-size: 0.95rem;
+    }
+
+    .submissions-table th {
+        background-color: var(--police-blue);
+        color: white;
+    }
+
+    /* Floating Contact Banners */
+    .floating-contact {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 1500;
+    }
+
+    .contact-banner {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.8rem 1.2rem;
+        border-radius: 30px;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        transition: transform 0.2s;
+    }
+
+    .contact-banner:hover {
+        transform: scale(1.05);
+    }
+
+    .banner-phone {
+        background-color: var(--police-blue);
+        border: 2px solid var(--police-gold);
+    }
+
+    .banner-whatsapp {
+        background-color: var(--whatsapp-green);
+    }
+
+    /* Footer */
+    footer {
+        background-color: var(--police-dark);
+        color: white;
+        padding: 3rem 1.5rem 1rem;
+        margin-top: 4rem;
+        border-top: 4px solid var(--police-gold);
+    }
+
+    .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-col h5 {
+        color: var(--police-gold);
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-col p, .footer-col li {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom {
+        max-width: 1100px;
+        margin: 0 auto;
+        border-top: 1px solid #1e293b;
+        padding-top: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #64748b;
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .credit-text {
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .hero h2 {
+            font-size: 2rem;
+        }
+        .hero p {
+            font-size: 1rem;
+        }
+        .floating-contact {
+            bottom: 15px;
+            left: 15px;
+        }
+        .contact-banner span {
+            display: none;
+        }
+        .contact-banner {
+            border-radius: 50%;
+            padding: 0.9rem;
+        }
+    }
+</style>
+
+
+<!-- Emergency Bar -->
+<div class="top-emergency-bar">
+    <i class="fa-solid fa-triangle-exclamation"></i> לדיווחים וקריאות חירום חייגו 100 מכל טלפון | מוקד מידע ארצי: 110
+</div>
+
+<!-- Navigation -->
+<nav>
+    <div class="logo-container">
+        <i class="fa-solid fa-shield-halved logo-icon"></i>
+        <div class="logo-text">
+            <h1>משטרת ישראל</h1>
+            <span>תחנת נתיבות | מרחב נגב</span>
         </div>
-    </header>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#about">אודות התחנה</a></li>
+        <li><a href="#values">ערכים וחזון</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('קבע')">גיוס לקבע</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('התנדבות')">התנדבות</a></li>
+        <li><a href="javascript:void(0)" onclick="toggleAdminLogin()"><i class="fa-solid fa-user-lock"></i> ניהול</a></li>
+    </ul>
+</nav>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow">
-
-        <!-- Home Section -->
-        <section id="section-home" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <!-- Hero Banner -->
-            <div class="relative rounded-3xl overflow-hidden police-gradient border border-police-gold/30 p-8 sm:p-12 mb-12 shadow-2xl text-center">
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                <div class="relative z-10 max-w-3xl mx-auto">
-                    <span class="inline-block bg-police-gold/20 text-police-gold border border-police-gold/40 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
-                        פורטל גיוס והתנדבות רשמי
-                    </span>
-                    <h2 class="text-3xl sm:text-5xl font-black text-white mb-6 leading-tight">
-                        מגנים על הבית. <span class="text-police-gold">משרתים בגאווה.</span>
-                    </h2>
-                    <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
-                        תחנת משטרת נתיבות מזמינה אתכם להצטרף לכוח האיכותי שלנו. בין אם במסלול שירות קבע מרתק ומאתגר או בהתנדבות למען הקהילה במשמר האזרחי ובמגוון תפקידי ליבה בתחנה.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onclick="selectTrack('recruitment')" 
-                                class="gold-gradient text-police-900 font-black px-8 py-4 rounded-2xl text-lg shadow-xl hover:opacity-95 transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fa-solid fa-user-shield text-xl"></i>
-                            <span>גיוס למשטרה (קבע/חובה)</span>
-                        </button>
-                        <button onclick="selectTrack('volunteering')" 
-                                class="bg-slate-800 hover:bg-slate-700 text-white border-2 border-police-gold font-bold px-8 py-4 rounded-2xl text-lg shadow-xl transition transform hover:scale-105 flex items-center justify-center gap-3">
-                            <i class="fa-solid fa-hands-holding-child text-xl text-police-gold"></i>
-                            <span>התנדבות במשמר האזרחי</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Features Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center card-hover">
-                    <div class="w-14 h-14 bg-police-gold/10 text-police-gold rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl border border-police-gold/20">
-                        <i class="fa-solid fa-shield-heart"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">ביטחון הקהילה</h3>
-                    <p class="text-slate-400 text-sm">השפעה ישירה על ביטחון התושבים בנתיבות והסביבה ושמירה על סדר הציבור.</p>
-                </div>
-                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center card-hover">
-                    <div class="w-14 h-14 bg-police-gold/10 text-police-gold rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl border border-police-gold/20">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">פיתוח וקידום</h3>
-                    <p class="text-slate-400 text-sm">הכשרות מקצועיות מתקדמות, מענקי הצטיינות ואופק קידום פיקודי ומקצועי.</p>
-                </div>
-                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center card-hover">
-                    <div class="w-14 h-14 bg-police-gold/10 text-police-gold rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl border border-police-gold/20">
-                        <i class="fa-solid fa-handshake-angle"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">תנאים מעולים</h3>
-                    <p class="text-slate-400 text-sm">תנאי שירות תחרותיים, מעטפת רווחה עשירה ומשפחה אחת חזקה ומגובשת.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Form Section -->
-        <section id="section-form" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto hidden">
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
-                <button onclick="showSection('home')" class="mb-6 text-police-gold hover:text-white flex items-center gap-2 text-sm font-semibold transition">
-                    <i class="fa-solid fa-arrow-right"></i> חזרה לעמוד הבית
-                </button>
-
-                <div class="text-center mb-8">
-                    <span id="form-track-badge" class="inline-block bg-police-gold/20 text-police-gold text-xs font-bold px-3 py-1 rounded-full mb-2">מסלול גיוס</span>
-                    <h2 id="form-title" class="text-2xl sm:text-3xl font-black text-white">טופס הרשמה מקוון</h2>
-                    <p class="text-slate-400 text-sm mt-1">מלאו את הפרטים ונציג מתחנת נתיבות יחזור אליכם בהקדם.</p>
-                </div>
-
-                <form id="registration-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                    <input type="hidden" id="track-type" value="recruitment">
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">שם מלא <span class="text-red-400">*</span></label>
-                            <input type="text" id="fullName" required 
-                                   class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition"
-                                   placeholder="לדוגמה: ישראל ישראלי">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">תעודת זהות (9 ספרות) <span class="text-red-400">*</span></label>
-                            <input type="text" id="idNumber" required maxlength="9" pattern="[0-9]{9}" 
-                                   class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition"
-                                   placeholder="012345678">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">טלפון נייד לחזרה <span class="text-red-400">*</span></label>
-                            <input type="tel" id="phone" required pattern="[0-9]{10}" 
-                                   class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition"
-                                   placeholder="0500000000">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">כתובת אימייל <span class="text-red-400">*</span></label>
-                            <input type="email" id="email" required 
-                                   class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition"
-                                   placeholder="name@example.com">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">ישוב מגורים <span class="text-red-400">*</span></label>
-                            <select id="city" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition">
-                                <option value="נתיבות" selected>נתיבות (מועדף)</option>
-                                <option value="אופקים">אופקים</option>
-                                <option value="שדרות">שדרות</option>
-                                <option value="באר שבע">באר שבע</option>
-                                <option value="אשקלון">אשקלון</option>
-                                <option value="מועצה אזורית שער הנגב">מועצה אזורית שער הנגב</option>
-                                <option value="מועצה אזורית שדות נגב">מועצה אזורית שדות נגב</option>
-                                <option value="אחר">אחר / יישוב סמוך</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">העלאת קורות חיים (PDF / Word)</label>
-                            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" 
-                                   class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-police-gold file:text-police-900 hover:file:bg-police-goldLight cursor-pointer transition">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">הערות / רקע נוסף (אופציונלי)</label>
-                        <textarea id="notes" rows="4" 
-                                  class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-police-gold transition"
-                                  placeholder="ציין ניסיון קודם, שירות צבאי, זמינות או שאלות מיוחדות..."></textarea>
-                    </div>
-
-                    <div class="pt-4">
-                        <button type="submit" 
-                                class="w-full gold-gradient text-police-900 font-black py-4 rounded-xl text-lg shadow-xl hover:opacity-95 transition transform hover:scale-[1.01] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span>שליחת טופס הגשת מועמדות</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- Success Modal / Alert Section -->
-        <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
-            <div class="bg-slate-900 border border-police-gold/50 rounded-3xl p-8 max-w-md w-full mx-4 text-center shadow-2xl">
-                <div class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl border border-emerald-500/30">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-                <h3 class="text-2xl font-black text-white mb-2">הטופס הוגש בהצלחה!</h3>
-                <p class="text-slate-300 text-sm mb-6">
-                    פרטיך נקלטו במערכת תחנת נתיבות והועברו ישירות למפקד התחנה ולצוות הגיוס. נציג יצור עמך קשר טלפוני בהקדם.
-                </p>
-                <button onclick="closeSuccessModal()" 
-                        class="w-full gold-gradient text-police-900 font-bold py-3 rounded-xl shadow-lg hover:opacity-95 transition">
-                    אישור וחזרה לעמוד הבית
-                </button>
-            </div>
+<!-- Hero Section -->
+<section class="hero">
+    <h2>משטרת ישראל - תחנת נתיבות</h2>
+    <p>מגינים על הבית, שומרים על הקהילה. הצטרפו אלינו למגוון מסלולי קריירה ושליחות או למערך ההתנדבות העירוני המוביל.</p>
+    
+    <!-- Track Choice Cards -->
+    <div class="tracks-container">
+        <div class="track-card" onclick="openModal('קבע')">
+            <i class="fa-solid fa-user-shield"></i>
+            <h3>גיוס לשירות קבע</h3>
+            <p>מסלול קריירה מאתגר, יציב ומלא שליחות בתפקידי סיור, חקירות, בילוש וטכנולוגיה.</p>
+            <span class="btn-track">להרשמה לגיוס</span>
         </div>
 
-        <!-- Admin Dashboard Section -->
-        <section id="section-admin" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto hidden">
-            <div class="bg-slate-900 border border-police-gold/40 rounded-3xl p-6 sm:p-8 shadow-2xl mb-8">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-6 mb-6">
-                    <div class="flex items-center space-x-3 space-x-reverse">
-                        <div class="w-12 h-12 bg-police-gold/20 text-police-gold rounded-xl flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-user-shield"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl font-black text-white">לוח בקרה ניהולי (מפקד תחנת נתיבות)</h2>
-                            <p class="text-xs text-police-gold">ניהול בזמן אמת של מועמדי גיוס והתנדבות</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="exportData()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-4 py-2 rounded-xl text-sm flex items-center gap-2 transition">
-                            <i class="fa-solid fa-download text-police-gold"></i> ייצוא נתונים
-                        </button>
-                        <button onclick="logoutAdmin()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 px-4 py-2 rounded-xl text-sm flex items-center gap-2 transition">
-                            <i class="fa-solid fa-right-from-bracket"></i> התנתק
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Stats Overview -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium">סך הכל מועמדים</p>
-                            <h4 id="stat-total" class="text-3xl font-black text-white mt-1">0</h4>
-                        </div>
-                        <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium">מועמדי גיוס (קבע/חובה)</p>
-                            <h4 id="stat-recruitment" class="text-3xl font-black text-police-gold mt-1">0</h4>
-                        </div>
-                        <div class="w-12 h-12 bg-police-gold/20 text-police-gold rounded-xl flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                    </div>
-                    <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-400 font-medium">מתנדבים למשמר האזרחי</p>
-                            <h4 id="stat-volunteering" class="text-3xl font-black text-emerald-400 mt-1">0</h4>
-                        </div>
-                        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-hands-holding-child"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Candidates Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
-                                <th class="py-3 px-4 font-semibold">תאריך והרשמה</th>
-                                <th class="py-3 px-4 font-semibold">שם מלא & ת"ז</th>
-                                <th class="py-3 px-4 font-semibold">מסלול</th>
-                                <th class="py-3 px-4 font-semibold">טלפון & אימייל</th>
-                                <th class="py-3 px-4 font-semibold">יישוב</th>
-                                <th class="py-3 px-4 font-semibold">קורות חיים</th>
-                                <th class="py-3 px-4 font-semibold">סטטוס טיפול</th>
-                                <th class="py-3 px-4 font-semibold text-center">פעולות</th>
-                            </tr>
-                        </thead>
-                        <tbody id="candidates-table-body" class="divide-y divide-slate-800 text-sm">
-                            <!-- Populated via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Login Modal -->
-        <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
-            <div class="bg-slate-900 border border-police-gold/50 rounded-3xl p-8 max-w-sm w-full mx-4 shadow-2xl relative">
-                <button onclick="closeAdminModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <div class="text-center mb-6">
-                    <div class="w-14 h-14 bg-police-gold/20 text-police-gold rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-police-gold/30">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
-                    <h3 class="text-xl font-black text-white">כניסת מפקד תחנה (ניהול)</h3>
-                    <p class="text-slate-400 text-xs mt-1">הזן מפתח גישה ראשי לצפייה בנתונים</p>
-                </div>
-                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-                    <div>
-                        <input type="password" id="admin-password" required 
-                               class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-center tracking-widest focus:outline-none focus:border-police-gold transition"
-                               placeholder="סיסמת ניהול">
-                    </div>
-                    <button type="submit" 
-                            class="w-full gold-gradient text-police-900 font-bold py-3 rounded-xl shadow-lg hover:opacity-95 transition">
-                        התחבר למערכת
-                    </button>
-                </form>
-            </div>
+        <div class="track-card" onclick="openModal('התנדבות')">
+            <i class="fa-solid fa-handshake-angle"></i>
+            <h3>הצטרפות להקמת מערך התנדבות</h3>
+            <p>קחו חלק פעיל בהגנה על העיר נתיבות - סיור עירוני, יחידות ג'יפים, רחפנים ותגובה מהירה.</p>
+            <span class="btn-track">להרשמה להתנדבות</span>
         </div>
+    </div>
+</section>
 
-    </main>
+<!-- Main Content -->
+<div class="container">
 
-    <!-- Footer -->
-    <footer class="police-gradient border-t border-police-gold/20 py-8 px-4 text-center text-slate-400 text-xs sm:text-sm mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-2 space-x-reverse">
-                <i class="fa-solid fa-shield-halved text-police-gold text-lg"></i>
-                <span class="text-white font-bold">משטרת ישראל - תחנת נתיבות</span>
-            </div>
-            <p>© כל הזכויות שמורות לחטיבת דובר המשטרה ותחנת נתיבות 2026</p>
-            <div class="flex items-center space-x-4 space-x-reverse text-police-gold">
-                <a href="https://wa.me/972504245200" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-whatsapp text-lg"></i></a>
-                <a href="tel:0504245200" class="hover:text-white transition"><i class="fa-solid fa-phone text-lg"></i></a>
-            </div>
+    <!-- About Section -->
+    <section id="about" class="section-title">
+        <h3>אודות תחנת נתיבות</h3>
+    </section>
+
+    <div class="grid-3">
+        <div class="value-card">
+            <i class="fa-solid fa-building-shield"></i>
+            <h4>שמירה על הביטחון והסדר</h4>
+            <p>תחנת נתיבות מופקדת על מתן מענה מבצעי וביטחוני מלא לתושבי העיר נתיבות והיישובים הסמוכים, תוך שיתוף פעולה הדוק עם הרשות המקומית.</p>
         </div>
-    </footer>
+        <div class="value-card">
+            <i class="fa-solid fa-users-gear"></i>
+            <h4>מכפיל כוח קהילתי</h4>
+            <p>מערך המתנדבים של התחנה מהווה חלק בלתי נפרד מפעילות הליבה המבצעית בשטח, באירועי חירום ובשגרה.</p>
+        </div>
+        <div class="value-card">
+            <i class="fa-solid fa-award"></i>
+            <h4>מקצועיות ומצויינות</h4>
+            <p>אנו משקיעים במשאב האנושי באמצעות הכשרות מתקדמות, תנאים מעולים ומסלולי קידום נרחבים לכלל המשרתים.</p>
+        </div>
+    </div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Default Mock Candidates if none exist
-        const defaultCandidates = [
-            {
-                id: '1',
-                date: '2026-06-06 10:30',
-                fullName: 'אבי כהן',
-                idNumber: '305123456',
-                phone: '0501234567',
-                email: 'avi.cohen@example.com',
-                city: 'נתיבות',
-                track: 'recruitment',
-                notes: 'יוצא وحدة גבעתי, מעוניין בשירות קבע סייר תנועה.',
-                cvName: 'Avi_Cohen_CV.pdf',
-                cvData: '#',
-                status: 'ממתין'
-            },
-            {
-                id: '2',
-                date: '2026-06-06 11:15',
-                fullName: 'דנה לוי',
-                idNumber: '312987654',
-                phone: '0529876543',
-                email: 'dana.levi@example.com',
-                city: 'נתיבות',
-                track: 'volunteering',
-                notes: 'סטודנטית, רוצה להתנדב במשמר האזרחי בסיורים הליליים.',
-                cvName: 'Dana_Levi_CV.pdf',
-                cvData: '#',
-                status: 'בטיפול'
-            }
-        ];
+    <!-- Values Section -->
+    <section id="values" class="section-title">
+        <h3>ערכי הליבה שלנו</h3>
+    </section>
 
-        function getCandidates() {
-            const stored = localStorage.getItem('netivot_police_candidates');
-            if (!stored) {
-                localStorage.setItem('netivot_police_candidates', JSON.stringify(defaultCandidates));
-                return defaultCandidates;
-            }
-            return JSON.parse(stored);
-        }
+    <div class="grid-3">
+        <div class="value-card">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <h4>רוח השליחות</h4>
+            <p>מחויבות עמוקה להגנה על חיי אדם, שמירה על החוק והגשת עזרה לכל אזרח בכל עת.</p>
+        </div>
+        <div class="value-card">
+            <i class="fa-solid fa-scale-balanced"></i>
+            <h4>יושרה ודוגמה אישית</h4>
+            <p>פועלים מתוך הגינות, שקיפות וכבוד הדדי מול הקהילה והתושבים.</p>
+        </div>
+        <div class="value-card">
+            <i class="fa-solid fa-people-group"></i>
+            <h4>רעות וערבות הדדית</h4>
+            <p>עבודת צוות מגובשת, תמיכה מלאה וגב חזק לכל לוחם, שוטר ומתנדב בתחנה.</p>
+        </div>
+    </div>
 
-        function saveCandidates(candidates) {
-            localStorage.setItem('netivot_police_candidates', JSON.stringify(candidates));
-        }
+    <!-- Admin Login Panel (Hidden by Default) -->
+    <div id="adminLoginPanel" class="value-card" style="display: none; max-width: 450px; margin: 2rem auto;">
+        <h4 style="text-align: center;"><i class="fa-solid fa-lock"></i> התחברות מנהל מערכת</h4>
+        <div class="form-group" style="margin-top: 1rem;">
+            <label>שם משתמש:</label>
+            <input type="text" id="adminUser" placeholder="הכנס שם משתמש">
+        </div>
+        <div class="form-group">
+            <label>סיסמה:</label>
+            <input type="password" id="adminPass" placeholder="הכנס סיסמה">
+        </div>
+        <button class="btn-submit" onclick="loginAdmin()">התחבר למערכת</button>
+    </div>
 
-        // Navigation between sections
-        function showSection(sectionId) {
-            document.getElementById('section-home').classList.add('hidden');
-            document.getElementById('section-form').classList.add('hidden');
-            document.getElementById('section-admin').classList.add('hidden');
+    <!-- Admin Dashboard Panel -->
+    <div id="adminDashboard" class="admin-dashboard">
+        <div class="admin-header">
+            <h3><i class="fa-solid fa-user-check"></i> פניות ונרשמים (תחנת נתיבות)</h3>
+            <button class="btn-export" onclick="exportToCSV()">
+                <i class="fa-solid fa-file-excel"></i> ייצוא ל-Google Sheets / CSV
+            </button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="submissions-table">
+                <thead>
+                    <tr>
+                        <th>תאריך</th>
+                        <th>מסלול</th>
+                        <th>שם מלא</th>
+                        <th>טלפון</th>
+                        <th>עיר</th>
+                        <th>קורות חיים</th>
+                        <th>הערות</th>
+                    </tr>
+                </thead>
+                <tbody id="submissionsBody">
+                    <!-- Data inserted dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            document.getElementById(`section-${sectionId}`).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+</div>
 
-        // Select Track and open Form
-        function selectTrack(track) {
-            const trackInput = document.getElementById('track-type');
-            const trackBadge = document.getElementById('form-track-badge');
-            const formTitle = document.getElementById('form-title');
+<!-- Registration Modal -->
+<div id="registrationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle" style="color: var(--police-blue); margin-bottom: 0.5rem;">טופס הרשמה</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">אנא מלא/י את הפרטים הבאים ונציג התחנה יצור איתך קשר בהקדם.</p>
 
-            trackInput.value = track;
-            if (track === 'recruitment') {
-                trackBadge.textContent = 'מסלול גיוס (שירות קבע / חובה)';
-                trackBadge.className = 'inline-block bg-police-gold/20 text-police-gold text-xs font-bold px-3 py-1 rounded-full mb-2';
-                formTitle.textContent = 'טופס הגשת מועמדות לגיוס למשטרה';
-            } else {
-                trackBadge.textContent = 'מסלול התנדבות במשמר האזרחי / תחנה';
-                trackBadge.className = 'inline-block bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full mb-2';
-                formTitle.textContent = 'טופס רישום להתנדבות קהילתית';
-            }
-
-            showSection('form');
-        }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-
-            const fullName = document.getElementById('fullName').value.trim();
-            const idNumber = document.getElementById('idNumber').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const city = document.getElementById('city').value;
-            const track = document.getElementById('track-type').value;
-            const notes = document.getElementById('notes').value.trim();
-            const fileInput = document.getElementById('cvFile');
-
-            let cvName = 'לא הועלה קובץ';
-            let cvData = '';
-
-            const now = new Date();
-            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
-            const saveNewCandidate = (cvFileName, cvBase64) => {
-                const candidates = getCandidates();
-                const newCandidate = {
-                    id: Date.now().toString(),
-                    date: dateStr,
-                    fullName,
-                    idNumber,
-                    phone,
-                    email,
-                    city,
-                    track,
-                    notes,
-                    cvName: cvFileName,
-                    cvData: cvBase64,
-                    status: 'ממתין'
-                };
-
-                candidates.unshift(newCandidate);
-                saveCandidates(candidates);
-
-                // Reset Form
-                document.getElementById('registration-form').reset();
-                // Show Success Modal
-                document.getElementById('success-modal').classList.remove('hidden');
-            };
-
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
-                cvName = file.name;
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    saveNewCandidate(cvName, e.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                saveNewCandidate(cvName, '');
-            }
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('success-modal').classList.add('hidden');
-            showSection('home');
-        }
-
-        function openAdminModal() {
-            // Check if already authenticated in session
-            if (sessionStorage.getItem('police_admin_auth') === 'true') {
-                loadAdminDashboard();
-                showSection('admin');
-            } else {
-                document.getElementById('admin-modal').classList.remove('hidden');
-            }
-        }
-
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
-
-        function handleAdminLogin(event) {
-            event.preventDefault();
-            const password = document.getElementById('admin-password').value;
-            // Master Admin Password for Netivot Police Station
-            if (password === 'Netivot2026!' || password === '1234') {
-                sessionStorage.setItem('police_admin_auth', 'true');
-                closeAdminModal();
-                document.getElementById('admin-password').value = '';
-                loadAdminDashboard();
-                showSection('admin');
-            } else {
-                alert('סיסמת ניהול שגנסה! נסה שנית.');
-            }
-        }
-
-        function logoutAdmin() {
-            sessionStorage.removeItem('police_admin_auth');
-            showSection('home');
-        }
-
-        function loadAdminDashboard() {
-            const candidates = getCandidates();
+        <form id="recruitmentForm" onsubmit="handleFormSubmit(event)">
+            <input type="hidden" id="trackType" value="">
             
-            // Update stats
-            document.getElementById('stat-total').textContent = candidates.length;
-            document.getElementById('stat-recruitment').textContent = candidates.filter(c => c.track === 'recruitment').length;
-            document.getElementById('stat-volunteering').textContent = candidates.filter(c => c.track === 'volunteering').length;
+            <div class="form-group">
+                <label for="fullName">שם מלא *</label>
+                <input type="text" id="fullName" required placeholder="ישראל ישראלי">
+            </div>
 
-            const tbody = document.getElementById('candidates-table-body');
-            tbody.innerHTML = '';
+            <div class="form-group">
+                <label for="phone">מספר טלפון נייד *</label>
+                <input type="tel" id="phone" required placeholder="050-0000000">
+            </div>
 
-            if (candidates.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-500">אין מועמדים רשומים כרגע במערכת</td></tr>`;
-                return;
-            }
+            <div class="form-group">
+                <label for="city">עיר / יישוב מגורים *</label>
+                <input type="text" id="city" required placeholder="נתיבות / סביבה">
+            </div>
 
-            candidates.forEach(c => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-800/50 transition';
+            <div class="form-group">
+                <label for="resume">העלאת קורות חיים (PDF / DOCX)</label>
+                <input type="file" id="resume" accept=".pdf,.doc,.docx">
+            </div>
 
-                const trackBadge = c.track === 'recruitment' 
-                    ? '<span class="bg-police-gold/20 text-police-gold text-xs px-2.5 py-1 rounded-full font-semibold">גיוס</span>' 
-                    : '<span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-semibold">התנדבות</span>';
+            <div class="form-group">
+                <label for="notes">הערות / פרטים נוספים</label>
+                <textarea id="notes" rows="3" placeholder="פרט בקצרה על ניסיונך הקודם או שאלות..."></textarea>
+            </div>
 
-                let statusColor = 'bg-amber-500/20 text-amber-400';
-                if (c.status === 'בטיפול') statusColor = 'bg-blue-500/20 text-blue-400';
-                if (c.status === 'התקבל') statusColor = 'bg-emerald-500/20 text-emerald-400';
+            <button type="submit" class="btn-submit">שליחת בקשה להצטרפות</button>
+        </form>
+    </div>
+</div>
 
-                let cvColumn = '<span class="text-slate-500 text-xs">אין קובץ</span>';
-                if (c.cvData && c.cvData !== '#') {
-                    cvColumn = `<a href="${c.cvData}" download="${c.cvName}" class="text-police-gold hover:underline text-xs flex items-center gap-1 font-medium"><i class="fa-solid fa-file-arrow-down"></i> ${c.cvName.substring(0, 12)}...</a>`;
-                } else if (c.cvName !== 'לא הועלה קובץ') {
-                    cvColumn = `<span class="text-slate-300 text-xs">${c.cvName}</span>`;
-                }
+<!-- Floating Contact Banners -->
+<div class="floating-contact">
+    <a href="https://wa.me/972504245200" target="_blank" class="contact-banner banner-whatsapp">
+        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+        <span>פנייה בוואטסאפ</span>
+    </a>
+    <a href="tel:0504245200" class="contact-banner banner-phone">
+        <i class="fa-solid fa-phone" style="font-size: 1.2rem;"></i>
+        <span>050-4245200</span>
+    </a>
+</div>
 
-                tr.innerHTML = `
-                    <td class="py-4 px-4 text-xs text-slate-400">${c.date}</td>
-                    <td class="py-4 px-4 font-bold text-white">
-                        <div>${c.fullName}</div>
-                        <div class="text-xs text-slate-400 font-normal">ת"ז: ${c.idNumber}</div>
-                    </td>
-                    <td class="py-4 px-4">${trackBadge}</td>
-                    <td class="py-4 px-4">
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-xs text-slate-500"></i> <a href="tel:${c.phone}" class="text-police-gold hover:underline font-mono">${c.phone}</a></div>
-                        <div class="text-xs text-slate-400">${c.email}</div>
-                    </td>
-                    <td class="py-4 px-4 text-slate-300 text-sm">${c.city}</td>
-                    <td class="py-4 px-4">${cvColumn}</td>
-                    <td class="py-4 px-4">
-                        <select onchange="updateStatus('${c.id}', this.value)" class="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs ${statusColor} font-semibold focus:outline-none">
-                            <option value="ממתין" ${c.status === 'ממתין' ? 'selected' : ''}>ממתין</option>
-                            <option value="בטיפול" ${c.status === 'בטיפול' ? 'selected' : ''}>בטיפול</option>
-                            <option value="התקבל" ${c.status === 'התקבל' ? 'selected' : ''}>התקבל</option>
-                        </select>
-                    </td>
-                    <td class="py-4 px-4 text-center">
-                        <button onclick="deleteCandidate('${c.id}')" class="text-red-400 hover:text-red-300 p-2 rounded-lg hover:bg-red-500/10 transition" title="מחק רשומה">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h5>משטרת ישראל - תחנת נתיבות</h5>
+            <p>פועלים מסביב לשעון לשמירה על שלום הציבור, הקהילה והביטחון האישי.</p>
+        </div>
+        <div class="footer-col">
+            <h5>יצירת קשר וחירום</h5>
+            <p>מוקד חירום: 100</p>
+            <p>מוקד מידע: 110</p>
+            <p>טלפון ישיר: 050-4245200</p>
+        </div>
+        <div class="footer-col">
+            <h5>כתובת ושעות פעילות</h5>
+            <p>תחנת נתיבות, מרחב נגב</p>
+            <p>קבלת קהל: ימים א'-ה' 08:00 - 16:00</p>
+            <p>יומן תחנה: 24/7</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div>© כל הזכויות שמורות - משטרת ישראל | תחנת נתיבות</div>
+        <div class="credit-text">נוצר ע"י ירדן צח</div>
+    </div>
+</footer>
+
+<!-- JavaScript Functions -->
+<script>
+    // Modal Handlers
+    function openModal(track) {
+        document.getElementById('trackType').value = track;
+        document.getElementById('modalTitle').innerText = 'הרשמה למסלול: ' + track;
+        document.getElementById('registrationModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('registrationModal').style.display = 'none';
+    }
+
+    // Close Modal on Click Outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('registrationModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // Handle Form Submission & LocalStorage
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const track = document.getElementById('trackType').value;
+        const name = document.getElementById('fullName').value;
+        const phone = document.getElementById('phone').value;
+        const city = document.getElementById('city').value;
+        const resumeInput = document.getElementById('resume');
+        const notes = document.getElementById('notes').value;
+
+        const fileName = resumeInput.files[0] ? resumeInput.files[0].name : 'לא צורף קובץ';
+        const date = new Date().toLocaleDateString('he-IL');
+
+        const submission = {
+            date: date,
+            track: track,
+            name: name,
+            phone: phone,
+            city: city,
+            fileName: fileName,
+            notes: notes
+        };
+
+        // Save to localStorage
+        let submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
+        submissions.push(submission);
+        localStorage.setItem('policeSubmissions', JSON.stringify(submissions));
+
+        alert('תודה ' + name + '! פנייתך למסלול ' + track + ' התקבלה בהצלחה ונשמרה במערכת.');
+        document.getElementById('recruitmentForm').reset();
+        closeModal();
+
+        // Refresh table if admin is logged in
+        if (document.getElementById('adminDashboard').style.display === 'block') {
+            loadSubmissions();
+        }
+    }
+
+    // Toggle Admin Login Panel
+    function toggleAdminLogin() {
+        const panel = document.getElementById('adminLoginPanel');
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Admin Login Validation
+    function loginAdmin() {
+        const user = document.getElementById('adminUser').value;
+        const pass = document.getElementById('adminPass').value;
+
+        if (user === 'admin' && pass === 'Netivot2026!') {
+            alert('התחברת בהצלחה כמנהל המערכת!');
+            document.getElementById('adminLoginPanel').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadSubmissions();
+        } else {
+            alert('שם משתמש או סיסמה שגויים!');
+        }
+    }
+
+    // Load Submissions into Admin Table
+    function loadSubmissions() {
+        const submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
+        const tbody = document.getElementById('submissionsBody');
+        tbody.innerHTML = '';
+
+        if (submissions.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">אין פניות עדיין במערכת.</td></tr>';
+            return;
         }
 
-        function updateStatus(id, newStatus) {
-            const candidates = getCandidates();
-            const index = candidates.findIndex(c => c.id === id);
-            if (index !== -1) {
-                candidates[index].status = newStatus;
-                saveCandidates(candidates);
-                loadAdminDashboard();
-            }
+        submissions.forEach(sub => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${sub.date}</td>
+                <td><strong>${sub.track}</strong></td>
+                <td>${sub.name}</td>
+                <td><a href="tel:${sub.phone}">${sub.phone}</a></td>
+                <td>${sub.city}</td>
+                <td><i class="fa-solid fa-file"></i> ${sub.fileName}</td>
+                <td>${sub.notes || '-'}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Export Submissions to CSV (Google Sheets Compatible)
+    function exportToCSV() {
+        const submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
+        if (submissions.length === 0) {
+            alert('אין נתונים לייצוא!');
+            return;
         }
 
-        function deleteCandidate(id) {
-            if (confirm('האם אתה בטוח שברצונך למחוק מועמד זה מהמערכת?')) {
-                let candidates = getCandidates();
-                candidates = candidates.filter(c => c.id !== id);
-                saveCandidates(candidates);
-                loadAdminDashboard();
-            }
-        }
+        let csvContent = "\uFEFF"; // UTF-8 BOM for Hebrew support in Excel
+        csvContent += "תאריך,מסלול,שם מלא,טלפון,עיר,קובץ קורות חיים,הערות\n";
 
-        function exportData() {
-            const candidates = getCandidates();
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(candidates, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `netivot_police_candidates_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-    </script>
-</body>
-</html>
+        submissions.forEach(sub => {
+            let row = `"${sub.date}","${sub.track}","${sub.name}","${sub.phone}","${sub.city}","${sub.fileName}","${sub.notes || ''}"`;
+            csvContent += row + "\n";
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'פניות_תחנת_נתיבות.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
