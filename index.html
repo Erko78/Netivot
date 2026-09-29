@@ -1,839 +1,602 @@
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Assistant', sans-serif;
-    }
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משטרת ישראל - תחנת נתיבות | גיוס והתנדבות</title>
+    <style>
+        :root {
+            --police-blue: #002b49;
+            --police-accent: #0056b3;
+            --police-gold: #c5a059;
+            --light-bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #e2e8f0;
+        }
 
-    body {
-        background-color: var(--light-bg);
-        color: var(--text-main);
-        line-height: 1.6;
-        direction: rtl;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    /* Top Bar */
-    .top-emergency-bar {
-        background-color: #b91c1c;
-        color: white;
-        text-align: center;
-        padding: 0.4rem 1rem;
-        font-weight: 700;
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-    }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
 
-    /* Navbar */
-    nav {
-        background-color: var(--police-blue);
-        color: white;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--police-blue) 0%, #001528 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            border-bottom: 4px solid var(--police-gold);
+            position: relative;
+        }
 
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-    .logo-icon {
-        font-size: 2.2rem;
-        color: var(--police-gold);
-    }
+        header p {
+            font-size: 1.2rem;
+            color: #d0dbe5;
+        }
 
-    .logo-text h1 {
-        font-size: 1.3rem;
-        font-weight: 800;
-        line-height: 1.1;
-    }
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
 
-    .logo-text span {
-        font-size: 0.85rem;
-        color: #94a3b8;
-    }
+        /* Info Section */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--police-gold);
+        }
 
-    .nav-links {
-        display: flex;
-        gap: 1.5rem;
-        list-style: none;
-    }
+        .info-card h2 {
+            color: var(--police-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
 
-    .nav-links a {
-        color: #f1f5f9;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.2s;
-    }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
 
-    .nav-links a:hover {
-        color: var(--police-gold);
-    }
+        .value-box {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
 
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(rgba(10, 37, 64, 0.9), rgba(5, 20, 36, 0.92)), 
-                    url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200') center/cover no-repeat;
-        color: white;
-        text-align: center;
-        padding: 4.5rem 1.5rem;
-        border-bottom: 5px solid var(--police-gold);
-    }
+        .value-box h3 {
+            color: var(--police-accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
 
-    .hero h2 {
-        font-size: 2.8rem;
-        margin-bottom: 1rem;
-        font-weight: 800;
-    }
+        /* Option Selection Cards */
+        .options-title {
+            text-align: center;
+            color: var(--police-blue);
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.8rem;
+        }
 
-    .hero p {
-        font-size: 1.25rem;
-        max-width: 750px;
-        margin: 0 auto 2.5rem auto;
-        color: #cbd5e1;
-    }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
 
-    /* Registration Track Selection Cards */
-    .tracks-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
-    .track-card {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(8px);
-        border: 2px solid var(--police-gold);
-        border-radius: 12px;
-        padding: 2rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        text-align: center;
-    }
-
-    .track-card:hover {
-        transform: translateY(-8px);
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
-    }
-
-    .track-card i {
-        font-size: 3rem;
-        color: var(--police-gold);
-        margin-bottom: 1rem;
-    }
-
-    .track-card h3 {
-        font-size: 1.6rem;
-        margin-bottom: 0.8rem;
-        color: white;
-    }
-
-    .track-card p {
-        font-size: 1rem;
-        color: #e2e8f0;
-        margin-bottom: 1.5rem;
-    }
-
-    .btn-track {
-        display: inline-block;
-        background-color: var(--police-gold);
-        color: var(--police-dark);
-        padding: 0.8rem 1.8rem;
-        border-radius: 6px;
-        font-weight: 800;
-        text-decoration: none;
-        transition: background-color 0.2s;
-    }
-
-    .btn-track:hover {
-        background-color: var(--police-gold-hover);
-    }
-
-    /* Container */
-    .container {
-        max-width: 1100px;
-        margin: 3.5rem auto;
-        padding: 0 1.5rem;
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 2.5rem;
-    }
-
-    .section-title h3 {
-        font-size: 2rem;
-        color: var(--police-blue);
-        position: relative;
-        display: inline-block;
-        padding-bottom: 0.5rem;
-        font-weight: 800;
-    }
-
-    .section-title h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: 50%;
-        transform: translateX(50%);
-        width: 70px;
-        height: 4px;
-        background-color: var(--police-gold);
-        border-radius: 2px;
-    }
-
-    /* Values Grid */
-    .grid-3 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 3.5rem;
-    }
-
-    .value-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 2.2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        border-top: 4px solid var(--police-accent);
-        transition: transform 0.2s;
-    }
-
-    .value-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .value-card i {
-        font-size: 2.5rem;
-        color: var(--police-accent);
-        margin-bottom: 1rem;
-    }
-
-    .value-card h4 {
-        font-size: 1.35rem;
-        color: var(--police-blue);
-        margin-bottom: 0.8rem;
-        font-weight: 700;
-    }
-
-    .value-card p {
-        color: var(--text-muted);
-        font-size: 0.98rem;
-    }
-
-    /* Form Modal Section */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        overflow-y: auto;
-    }
-
-    .modal-content {
-        background-color: white;
-        border-radius: 12px;
-        width: 100%;
-        max-width: 650px;
-        padding: 2.5rem;
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        border-top: 6px solid var(--police-gold);
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    .close-modal {
-        position: absolute;
-        top: 1.2rem;
-        left: 1.2rem;
-        font-size: 1.8rem;
-        cursor: pointer;
-        color: var(--text-muted);
-    }
-
-    .close-modal:hover {
-        color: var(--police-dark);
-    }
-
-    .form-group {
-        margin-bottom: 1.2rem;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 0.4rem;
-        font-weight: 700;
-        color: var(--police-blue);
-    }
-
-    .form-group input, 
-    .form-group select, 
-    .form-group textarea {
-        width: 100%;
-        padding: 0.85rem;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        font-size: 1rem;
-        background-color: #f8fafc;
-        outline: none;
-    }
-
-    .form-group input:focus, 
-    .form-group select:focus, 
-    .form-group textarea:focus {
-        border-color: var(--police-accent);
-        background-color: white;
-    }
-
-    .btn-submit {
-        width: 100%;
-        background-color: var(--police-blue);
-        color: white;
-        padding: 1rem;
-        border: none;
-        border-radius: 6px;
-        font-size: 1.1rem;
-        font-weight: 800;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .btn-submit:hover {
-        background-color: var(--police-accent);
-    }
-
-    /* Admin Dashboard Styles */
-    .admin-dashboard {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        margin-top: 2rem;
-        display: none;
-    }
-
-    .admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        border-bottom: 2px solid var(--light-bg);
-        padding-bottom: 1rem;
-    }
-
-    .btn-export {
-        background-color: #16a34a;
-        color: white;
-        padding: 0.6rem 1.2rem;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .btn-export:hover {
-        background-color: #15803d;
-    }
-
-    .submissions-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-
-    .submissions-table th, .submissions-table td {
-        padding: 0.8rem;
-        border: 1px solid var(--border-color);
-        text-align: right;
-        font-size: 0.95rem;
-    }
-
-    .submissions-table th {
-        background-color: var(--police-blue);
-        color: white;
-    }
-
-    /* Floating Contact Banners */
-    .floating-contact {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 1500;
-    }
-
-    .contact-banner {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 0.8rem 1.2rem;
-        border-radius: 30px;
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-        transition: transform 0.2s;
-    }
-
-    .contact-banner:hover {
-        transform: scale(1.05);
-    }
-
-    .banner-phone {
-        background-color: var(--police-blue);
-        border: 2px solid var(--police-gold);
-    }
-
-    .banner-whatsapp {
-        background-color: var(--whatsapp-green);
-    }
-
-    /* Footer */
-    footer {
-        background-color: var(--police-dark);
-        color: white;
-        padding: 3rem 1.5rem 1rem;
-        margin-top: 4rem;
-        border-top: 4px solid var(--police-gold);
-    }
-
-    .footer-content {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .footer-col h5 {
-        color: var(--police-gold);
-        font-size: 1.15rem;
-        margin-bottom: 1rem;
-    }
-
-    .footer-col p, .footer-col li {
-        color: #94a3b8;
-        font-size: 0.95rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .footer-bottom {
-        max-width: 1100px;
-        margin: 0 auto;
-        border-top: 1px solid #1e293b;
-        padding-top: 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: #64748b;
-        font-size: 0.85rem;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .credit-text {
-        font-size: 0.8rem;
-        color: #94a3b8;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        nav {
+        .option-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
             flex-direction: column;
-            gap: 1rem;
+            justify-content: space-between;
         }
-        .hero h2 {
-            font-size: 2rem;
+
+        .option-card:hover {
+            border-color: var(--police-accent);
+            transform: translateY(-5px);
         }
-        .hero p {
+
+        .option-card h3 {
+            color: var(--police-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-card p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-select {
+            background-color: var(--police-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
             font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .floating-contact {
-            bottom: 15px;
-            left: 15px;
+
+        .btn-select:hover {
+            background-color: var(--police-accent);
         }
-        .contact-banner span {
+
+        /* Registration Form Section */
+        .form-section {
             display: none;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .contact-banner {
-            border-radius: 50%;
-            padding: 0.9rem;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-    }
-</style>
 
+        .form-section h2 {
+            color: var(--police-blue);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.8rem;
+        }
 
-<!-- Emergency Bar -->
-<div class="top-emergency-bar">
-    <i class="fa-solid fa-triangle-exclamation"></i> לדיווחים וקריאות חירום חייגו 100 מכל טלפון | מוקד מידע ארצי: 110
-</div>
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
 
-<!-- Navigation -->
-<nav>
-    <div class="logo-container">
-        <i class="fa-solid fa-shield-halved logo-icon"></i>
-        <div class="logo-text">
-            <h1>משטרת ישראל</h1>
-            <span>תחנת נתיבות | מרחב נגב</span>
-        </div>
-    </div>
-    <ul class="nav-links">
-        <li><a href="#about">אודות התחנה</a></li>
-        <li><a href="#values">ערכים וחזון</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal('קבע')">גיוס לקבע</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal('התנדבות')">התנדבות</a></li>
-        <li><a href="javascript:void(0)" onclick="toggleAdminLogin()"><i class="fa-solid fa-user-lock"></i> ניהול</a></li>
-    </ul>
-</nav>
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: #334155;
+        }
 
-<!-- Hero Section -->
-<section class="hero">
-    <h2>משטרת ישראל - תחנת נתיבות</h2>
-    <p>מגינים על הבית, שומרים על הקהילה. הצטרפו אלינו למגוון מסלולי קריירה ושליחות או למערך ההתנדבות העירוני המוביל.</p>
-    
-    <!-- Track Choice Cards -->
-    <div class="tracks-container">
-        <div class="track-card" onclick="openModal('קבע')">
-            <i class="fa-solid fa-user-shield"></i>
-            <h3>גיוס לשירות קבע</h3>
-            <p>מסלול קריירה מאתגר, יציב ומלא שליחות בתפקידי סיור, חקירות, בילוש וטכנולוגיה.</p>
-            <span class="btn-track">להרשמה לגיוס</span>
-        </div>
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: #fff;
+        }
 
-        <div class="track-card" onclick="openModal('התנדבות')">
-            <i class="fa-solid fa-handshake-angle"></i>
-            <h3>הצטרפות להקמת מערך התנדבות</h3>
-            <p>קחו חלק פעיל בהגנה על העיר נתיבות - סיור עירוני, יחידות ג'יפים, רחפנים ותגובה מהירה.</p>
-            <span class="btn-track">להרשמה להתנדבות</span>
-        </div>
-    </div>
-</section>
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--police-accent);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
 
-<!-- Main Content -->
-<div class="container">
+        .btn-submit {
+            width: 100%;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 1rem;
+        }
 
-    <!-- About Section -->
-    <section id="about" class="section-title">
-        <h3>אודות תחנת נתיבות</h3>
-    </section>
+        .btn-submit:hover {
+            background-color: #15803d;
+        }
 
-    <div class="grid-3">
-        <div class="value-card">
-            <i class="fa-solid fa-building-shield"></i>
-            <h4>שמירה על הביטחון והסדר</h4>
-            <p>תחנת נתיבות מופקדת על מתן מענה מבצעי וביטחוני מלא לתושבי העיר נתיבות והיישובים הסמוכים, תוך שיתוף פעולה הדוק עם הרשות המקומית.</p>
-        </div>
-        <div class="value-card">
-            <i class="fa-solid fa-users-gear"></i>
-            <h4>מכפיל כוח קהילתי</h4>
-            <p>מערך המתנדבים של התחנה מהווה חלק בלתי נפרד מפעילות הליבה המבצעית בשטח, באירועי חירום ובשגרה.</p>
-        </div>
-        <div class="value-card">
-            <i class="fa-solid fa-award"></i>
-            <h4>מקצועיות ומצויינות</h4>
-            <p>אנו משקיעים במשאב האנושי באמצעות הכשרות מתקדמות, תנאים מעולים ומסלולי קידום נרחבים לכלל המשרתים.</p>
-        </div>
-    </div>
+        /* Contact Banners */
+        .contact-banners {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            left: 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            z-index: 1000;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-    <!-- Values Section -->
-    <section id="values" class="section-title">
-        <h3>ערכי הליבה שלנו</h3>
-    </section>
+        .banner-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1rem;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.2s;
+        }
 
-    <div class="grid-3">
-        <div class="value-card">
-            <i class="fa-solid fa-heart-pulse"></i>
-            <h4>רוח השליחות</h4>
-            <p>מחויבות עמוקה להגנה על חיי אדם, שמירה על החוק והגשת עזרה לכל אזרח בכל עת.</p>
-        </div>
-        <div class="value-card">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <h4>יושרה ודוגמה אישית</h4>
-            <p>פועלים מתוך הגינות, שקיפות וכבוד הדדי מול הקהילה והתושבים.</p>
-        </div>
-        <div class="value-card">
-            <i class="fa-solid fa-people-group"></i>
-            <h4>רעות וערבות הדדית</h4>
-            <p>עבודת צוות מגובשת, תמיכה מלאה וגב חזק לכל לוחם, שוטר ומתנדב בתחנה.</p>
-        </div>
-    </div>
+        .banner-btn:active {
+            transform: scale(0.96);
+        }
 
-    <!-- Admin Login Panel (Hidden by Default) -->
-    <div id="adminLoginPanel" class="value-card" style="display: none; max-width: 450px; margin: 2rem auto;">
-        <h4 style="text-align: center;"><i class="fa-solid fa-lock"></i> התחברות מנהל מערכת</h4>
-        <div class="form-group" style="margin-top: 1rem;">
-            <label>שם משתמש:</label>
-            <input type="text" id="adminUser" placeholder="הכנס שם משתמש">
-        </div>
-        <div class="form-group">
-            <label>סיסמה:</label>
-            <input type="password" id="adminPass" placeholder="הכנס סיסמה">
-        </div>
-        <button class="btn-submit" onclick="loginAdmin()">התחבר למערכת</button>
-    </div>
+        .btn-phone {
+            background-color: var(--police-blue);
+        }
 
-    <!-- Admin Dashboard Panel -->
-    <div id="adminDashboard" class="admin-dashboard">
-        <div class="admin-header">
-            <h3><i class="fa-solid fa-user-check"></i> פניות ונרשמים (תחנת נתיבות)</h3>
-            <button class="btn-export" onclick="exportToCSV()">
-                <i class="fa-solid fa-file-excel"></i> ייצוא ל-Google Sheets / CSV
-            </button>
-        </div>
-        <div style="overflow-x: auto;">
-            <table class="submissions-table">
-                <thead>
-                    <tr>
-                        <th>תאריך</th>
-                        <th>מסלול</th>
-                        <th>שם מלא</th>
-                        <th>טלפון</th>
-                        <th>עיר</th>
-                        <th>קורות חיים</th>
-                        <th>הערות</th>
-                    </tr>
-                </thead>
-                <tbody id="submissionsBody">
-                    <!-- Data inserted dynamically -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+        .btn-whatsapp {
+            background-color: #25d366;
+        }
 
-</div>
+        /* Admin Area */
+        .admin-toggle {
+            text-align: center;
+            margin-top: 3rem;
+        }
 
-<!-- Registration Modal -->
-<div id="registrationModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3 id="modalTitle" style="color: var(--police-blue); margin-bottom: 0.5rem;">טופס הרשמה</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">אנא מלא/י את הפרטים הבאים ונציג התחנה יצור איתך קשר בהקדם.</p>
+        .btn-admin {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
-        <form id="recruitmentForm" onsubmit="handleFormSubmit(event)">
-            <input type="hidden" id="trackType" value="">
+        .admin-section {
+            display: none;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border: 2px solid var(--police-gold);
+        }
+
+        .admin-table-wrapper {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--police-blue);
+            color: white;
+        }
+
+        .btn-export {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            padding: 1.5rem 1rem;
+            background-color: #0f172a;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .credit {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.6rem; }
+            header p { font-size: 1rem; }
+            .container { padding: 0 0.8rem; }
+            .info-card, .option-card, .form-section { padding: 1.2rem; }
+            .banner-btn { font-size: 0.85rem; padding: 0.7rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>משטרת ישראל - תחנת נתיבות</h1>
+        <p>מערך הגיוס וההתנדבות העירוני</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Info & Values Section -->
+        <section class="info-card">
+            <h2>שליחות, עוצמה וקהילה</h2>
+            <p>תחנת נתיבות מהווה עמוד התווך בביטחון התושבים ובשמירה על הסדר הציבורי בעיר ובסביבתה. אנו מזמינים אתכם להצטרף לעשייה משמעותית ולהוביל שינוי אמיתי בשטח.</p>
             
-            <div class="form-group">
-                <label for="fullName">שם מלא *</label>
-                <input type="text" id="fullName" required placeholder="ישראל ישראלי">
+            <div class="values-grid">
+                <div class="value-box">
+                    <h3>מנהיגות ואחריות</h3>
+                    <p>הובלת משימות ביטחון ואיכות חיים למען התושבים.</p>
+                </div>
+                <div class="value-box">
+                    <h3>ערבות הדדית</h3>
+                    <p>חיזוק תחושת הביטחון האישי והקהילתי במרחב.</p>
+                </div>
+                <div class="value-box">
+                    <h3>מצויינות ומקצועיות</h3>
+                    <p>הכשרות מתקדמות, עבודת צוות וטכנולוגיה בחזית.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Options Title -->
+        <h2 class="options-title">בחרו את מסלול ההצטרפות שלכם</h2>
+
+        <!-- Options Cards -->
+        <div class="options-grid">
+            <div class="option-card" onclick="openForm('קבע')">
+                <div>
+                    <h3>גיוס לשירות קבע</h3>
+                    <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי ותרומה ישירה לביטחון המדינה.</p>
+                </div>
+                <button class="btn-select">להרשמה לגיוס קבע</button>
             </div>
 
-            <div class="form-group">
-                <label for="phone">מספר טלפון נייד *</label>
-                <input type="tel" id="phone" required placeholder="050-0000000">
+            <div class="option-card" onclick="openForm('התנדבות')">
+                <div>
+                    <h3>הצטרפות להקמת מערך התנדבות</h3>
+                    <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך.</p>
+                </div>
+                <button class="btn-select">להרשמה להתנדבות</button>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="city">עיר / יישוב מגורים *</label>
-                <input type="text" id="city" required placeholder="נתיבות / סביבה">
+        <!-- Registration Form Section -->
+        <section id="formSection" class="form-section">
+            <h2 id="formTitle">טופס הרשמה</h2>
+            <form id="registrationForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="trackType" name="trackType" value="">
+
+                <div class="form-group">
+                    <label for="fullName">שם מלא *</label>
+                    <input type="text" id="fullName" required placeholder="ישראל ישראלי">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">מספר טלפון *</label>
+                    <input type="tel" id="phone" required placeholder="050-0000000">
+                </div>
+
+                <div class="form-group">
+                    <label for="city">עיר מגורים *</label>
+                    <input type="text" id="city" required placeholder="נתיבות / יישוב בסביבה">
+                </div>
+
+                <div class="form-group">
+                    <label for="idNumber">מספר תעודת זהות</label>
+                    <input type="text" id="idNumber" placeholder="9 ספרות">
+                </div>
+
+                <div class="form-group">
+                    <label for="resumeFile">העלאת קורות חיים (CV) *</label>
+                    <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">הערות / ניסיון קודם</label>
+                    <textarea id="notes" rows="3" placeholder="פרט בקצרה על ניסיון צבאי/משטרתי/אחר..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">שלח מועמדות</button>
+            </form>
+        </section>
+
+        <!-- Admin Access Toggle -->
+        <div class="admin-toggle">
+            <button class="btn-admin" onclick="showAdminLogin()">כניסת מורשה / מנהל</button>
+        </div>
+
+        <!-- Admin Area -->
+        <div id="adminSection" class="admin-section">
+            <h2>אזור ניהול - פניות נרשמים</h2>
+            <p style="margin-bottom: 1rem; color: #64748b;">כל הפניות שנשלחו במערכת שמורות בלשונית זו.</p>
+            <button class="btn-export" onclick="exportToCSV()">ייצוא ל-Google Sheets / Excel (CSV)</button>
+            
+            <div class="admin-table-wrapper">
+                <table id="leadsTable">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>מסלול</th>
+                            <th>שם מלא</th>
+                            <th>טלפון</th>
+                            <th>עיר</th>
+                            <th>ת"ז</th>
+                            <th>קובץ CV</th>
+                            <th>הערות</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <!-- Data rows dynamically generated -->
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="resume">העלאת קורות חיים (PDF / DOCX)</label>
-                <input type="file" id="resume" accept=".pdf,.doc,.docx">
-            </div>
-
-            <div class="form-group">
-                <label for="notes">הערות / פרטים נוספים</label>
-                <textarea id="notes" rows="3" placeholder="פרט בקצרה על ניסיונך הקודם או שאלות..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">שליחת בקשה להצטרפות</button>
-        </form>
     </div>
-</div>
 
-<!-- Floating Contact Banners -->
-<div class="floating-contact">
-    <a href="https://wa.me/972504245200" target="_blank" class="contact-banner banner-whatsapp">
-        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
-        <span>פנייה בוואטסאפ</span>
-    </a>
-    <a href="tel:0504245200" class="contact-banner banner-phone">
-        <i class="fa-solid fa-phone" style="font-size: 1.2rem;"></i>
-        <span>050-4245200</span>
-    </a>
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-col">
-            <h5>משטרת ישראל - תחנת נתיבות</h5>
-            <p>פועלים מסביב לשעון לשמירה על שלום הציבור, הקהילה והביטחון האישי.</p>
-        </div>
-        <div class="footer-col">
-            <h5>יצירת קשר וחירום</h5>
-            <p>מוקד חירום: 100</p>
-            <p>מוקד מידע: 110</p>
-            <p>טלפון ישיר: 050-4245200</p>
-        </div>
-        <div class="footer-col">
-            <h5>כתובת ושעות פעילות</h5>
-            <p>תחנת נתיבות, מרחב נגב</p>
-            <p>קבלת קהל: ימים א'-ה' 08:00 - 16:00</p>
-            <p>יומן תחנה: 24/7</p>
-        </div>
+    <!-- Contact Banners -->
+    <div class="contact-banners">
+        <a href="tel:0504245200" class="banner-btn btn-phone">
+            📞 חייג: 050-4245200
+        </a>
+        <a href="https://wa.me/972504245200?text=%D7%A9%D7%9C%D7%95%D7%9D,%20%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A4%D7%A8%D7%90%D7%99%D7%9D%20%D7%91%D7%A0%D7%95%D7%A0%D7%92%D7%A2%20%D7%9C%D7%92%D7%99%D7%95%D7%A1/%D7%90%D7%AA%D7%A0%D7%93%D7%91%D7%95%D7%AA" target="_blank" class="banner-btn btn-whatsapp">
+            💬 פנייה ב-WhatsApp
+        </a>
     </div>
 
-    <div class="footer-bottom">
+    <!-- Footer -->
+    <footer>
         <div>© כל הזכויות שמורות - משטרת ישראל | תחנת נתיבות</div>
-        <div class="credit-text">נוצר ע"י ירדן צח</div>
-    </div>
-</footer>
+        <div class="credit">ירדן צח</div>
+    </footer>
 
-<!-- JavaScript Functions -->
-<script>
-    // Modal Handlers
-    function openModal(track) {
-        document.getElementById('trackType').value = track;
-        document.getElementById('modalTitle').innerText = 'הרשמה למסלול: ' + track;
-        document.getElementById('registrationModal').style.display = 'flex';
-    }
+    <script>
+        // Open registration form for specific track
+        function openForm(track) {
+            const formSection = document.getElementById('formSection');
+            const formTitle = document.getElementById('formTitle');
+            const trackInput = document.getElementById('trackType');
 
-    function closeModal() {
-        document.getElementById('registrationModal').style.display = 'none';
-    }
+            trackInput.value = track;
+            formTitle.innerText = 'טופס הרשמה - מסלול ' + track;
+            formSection.style.display = 'block';
 
-    // Close Modal on Click Outside
-    window.onclick = function(event) {
-        const modal = document.getElementById('registrationModal');
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
-
-    // Handle Form Submission & LocalStorage
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        
-        const track = document.getElementById('trackType').value;
-        const name = document.getElementById('fullName').value;
-        const phone = document.getElementById('phone').value;
-        const city = document.getElementById('city').value;
-        const resumeInput = document.getElementById('resume');
-        const notes = document.getElementById('notes').value;
-
-        const fileName = resumeInput.files[0] ? resumeInput.files[0].name : 'לא צורף קובץ';
-        const date = new Date().toLocaleDateString('he-IL');
-
-        const submission = {
-            date: date,
-            track: track,
-            name: name,
-            phone: phone,
-            city: city,
-            fileName: fileName,
-            notes: notes
-        };
-
-        // Save to localStorage
-        let submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
-        submissions.push(submission);
-        localStorage.setItem('policeSubmissions', JSON.stringify(submissions));
-
-        alert('תודה ' + name + '! פנייתך למסלול ' + track + ' התקבלה בהצלחה ונשמרה במערכת.');
-        document.getElementById('recruitmentForm').reset();
-        closeModal();
-
-        // Refresh table if admin is logged in
-        if (document.getElementById('adminDashboard').style.display === 'block') {
-            loadSubmissions();
-        }
-    }
-
-    // Toggle Admin Login Panel
-    function toggleAdminLogin() {
-        const panel = document.getElementById('adminLoginPanel');
-        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // Admin Login Validation
-    function loginAdmin() {
-        const user = document.getElementById('adminUser').value;
-        const pass = document.getElementById('adminPass').value;
-
-        if (user === 'admin' && pass === 'Netivot2026!') {
-            alert('התחברת בהצלחה כמנהל המערכת!');
-            document.getElementById('adminLoginPanel').style.display = 'none';
-            document.getElementById('adminDashboard').style.display = 'block';
-            loadSubmissions();
-        } else {
-            alert('שם משתמש או סיסמה שגויים!');
-        }
-    }
-
-    // Load Submissions into Admin Table
-    function loadSubmissions() {
-        const submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
-        const tbody = document.getElementById('submissionsBody');
-        tbody.innerHTML = '';
-
-        if (submissions.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">אין פניות עדיין במערכת.</td></tr>';
-            return;
+            // Scroll to form
+            formSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        submissions.forEach(sub => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${sub.date}</td>
-                <td><strong>${sub.track}</strong></td>
-                <td>${sub.name}</td>
-                <td><a href="tel:${sub.phone}">${sub.phone}</a></td>
-                <td>${sub.city}</td>
-                <td><i class="fa-solid fa-file"></i> ${sub.fileName}</td>
-                <td>${sub.notes || '-'}</td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
+        // Handle Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
 
-    // Export Submissions to CSV (Google Sheets Compatible)
-    function exportToCSV() {
-        const submissions = JSON.parse(localStorage.getItem('policeSubmissions') || '[]');
-        if (submissions.length === 0) {
-            alert('אין נתונים לייצוא!');
-            return;
+            const track = document.getElementById('trackType').value;
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const fileInput = document.getElementById('resumeFile');
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : 'ללא קובץ';
+            const notes = document.getElementById('notes').value;
+            const date = new Date().toLocaleDateString('he-IL') + ' ' + new Date().toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
+
+            const newLead = { date, track, fullName, phone, city, idNumber, fileName, notes };
+
+            // Save to localStorage
+            let leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
+            leads.push(newLead);
+            localStorage.setItem('police_netivot_leads', JSON.stringify(leads));
+
+            alert('בקשתך נקלטה בהצלחה! נציג משטרת נתיבות יצור עמך קשר בהקדם.');
+            document.getElementById('registrationForm').reset();
+            document.getElementById('formSection').style.display = 'none';
         }
 
-        let csvContent = "\uFEFF"; // UTF-8 BOM for Hebrew support in Excel
-        csvContent += "תאריך,מסלול,שם מלא,טלפון,עיר,קובץ קורות חיים,הערות\n";
+        // Admin Login & Display
+        function showAdminLogin() {
+            const username = prompt('הכנס שם משתמש:');
+            const password = prompt('הכנס סיסמה:');
 
-        submissions.forEach(sub => {
-            let row = `"${sub.date}","${sub.track}","${sub.name}","${sub.phone}","${sub.city}","${sub.fileName}","${sub.notes || ''}"`;
-            csvContent += row + "\n";
-        });
+            if (username === 'admin' && password === 'Netivot2026!') {
+                document.getElementById('adminSection').style.display = 'block';
+                loadAdminData();
+                document.getElementById('adminSection').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('שם משתמש או סיסמה שגויים!');
+            }
+        }
 
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'פניות_תחנת_נתיבות.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-</script>
+        function loadAdminData() {
+            const tbody = document.getElementById('leadsTableBody');
+            tbody.innerHTML = '';
+            const leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
+
+            if (leads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">אין פניות עדיין</td></tr>';
+                return;
+            }
+
+            leads.forEach(lead => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${lead.date}</td>
+                    <td><strong>${lead.track}</strong></td>
+                    <td>${lead.fullName}</td>
+                    <td><a href="tel:${lead.phone}">${lead.phone}</a></td>
+                    <td>${lead.city}</td>
+                    <td>${lead.idNumber || '-'}</td>
+                    <td>📂 ${lead.fileName}</td>
+                    <td>${lead.notes || '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Export data to CSV (Google Sheets compatible)
+        function exportToCSV() {
+            const leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
+            if (leads.length === 0) {
+                alert('אין נתונים לייצוא');
+                return;
+            }
+
+            let csvContent = "\uFEFF"; // UTF-8 BOM for Hebrew support in Excel/Sheets
+            csvContent += "תאריך,מסלול,שם מלא,טלפון,עיר,תעודת זהות,שם קובץ קורות חיים,הערות\n";
+
+            leads.forEach(l => {
+                csvContent += `"${l.date}","${l.track}","${l.fullName}","${l.phone}","${l.city}","${l.idNumber}","${l.fileName}","${l.notes.replace(/\n/g, ' ')}"\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `פניות_משטרת_נתיבות_${new Date().toLocaleDateString('he-IL')}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+
+</body>
+</html>
