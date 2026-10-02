@@ -29,7 +29,7 @@
             padding-bottom: 90px;
         }
 
-        /* Header - תמונת רקע מבצעית כהה */
+        /* Header */
         header {
             position: relative;
             background: linear-gradient(rgba(0, 20, 35, 0.85), rgba(0, 10, 20, 0.92)), 
@@ -192,8 +192,8 @@
             background-color: var(--police-accent);
         }
 
-        /* Form Section */
-        .form-section {
+        /* Verification & Form Section */
+        .registration-container {
             display: none;
             background: var(--card-bg);
             border-radius: 12px;
@@ -208,7 +208,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .form-section h2 {
+        .section-header {
             color: var(--police-blue);
             margin-bottom: 1.5rem;
             text-align: center;
@@ -242,22 +242,46 @@
             box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
         }
 
-        .btn-submit {
+        .btn-action {
             width: 100%;
-            background-color: #16a34a;
+            background-color: var(--police-blue);
             color: white;
             border: none;
-            padding: 1rem;
+            padding: 0.9rem;
             border-radius: 6px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: background 0.2s;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-action:hover {
+            background-color: var(--police-accent);
+        }
+
+        .btn-submit {
+            background-color: #16a34a;
         }
 
         .btn-submit:hover {
             background-color: #15803d;
+        }
+
+        .step-box {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .otp-display {
+            background-color: #e0f2fe;
+            border: 1px dashed #0284c7;
+            color: #0369a1;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin: 1rem 0;
         }
 
         /* Contact Banners */
@@ -359,7 +383,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Footer - ללא קרדיט ירדן צח */
+        /* Footer */
         footer {
             margin-top: 3rem;
             padding: 1.5rem 1rem;
@@ -380,7 +404,7 @@
             header h1 { font-size: 1.5rem; }
             header p { font-size: 1rem; }
             .container { padding: 0 0.8rem; }
-            .info-card, .form-section { padding: 1.2rem; }
+            .info-card, .registration-container { padding: 1.2rem; }
             .banner-btn { font-size: 0.85rem; padding: 0.7rem 0.5rem; }
         }
     </style>
@@ -402,7 +426,7 @@
 
     <div class="container">
 
-        <!-- Info & Values Section -->
+        <!-- Info Section -->
         <section class="info-card">
             <h2>שליחות, עוצמה וקהילה</h2>
             <p>תחנת נתיבות מהווה עמוד התווך בביטחון התושבים ובשמירה על הסדר הציבורי בעיר ובסביבתה. אנו מזמינים אתכם להצטרף לעשייה משמעותית ולהוביל שינוי אמיתי בשטח.</p>
@@ -428,70 +452,96 @@
 
         <!-- Options Cards -->
         <div class="options-grid">
-            <!-- כרטיס גיוס קבע - שוטר בלמידה/קורס אקדמי -->
-            <div class="option-card" onclick="openForm('קבע')">
-                <img src="recruitment.jpg" alt="גיוס לשירות קבע - קורס והכשרה" class="card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600';">
+            <div class="option-card" onclick="startRegistration('קבע')">
+                <img src="recruitment.jpg" alt="גיוס לשירות קבע" class="card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600';">
                 <div class="card-body">
                     <div>
                         <h3>גיוס לשירות קבע</h3>
-                        <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי, קורסים מתקדמים ותרומה ישירה לביטחון המדינה.</p>
+                        <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי ותרומה ישירה לביטחון המדינה.</p>
                     </div>
                     <button class="btn-select">להרשמה לגיוס קבע</button>
                 </div>
             </div>
 
-            <!-- כרטיס התנדבות - מתנדב שמח ודומיננטי במרכז שוטרים -->
-            <div class="option-card" onclick="openForm('התנדבות')">
+            <div class="option-card" onclick="startRegistration('התנדבות')">
                 <img src="volunteer.jpg" alt="הצטרפות למערך ההתנדבות" class="card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600';">
                 <div class="card-body">
                     <div>
                         <h3>הצטרפות להקמת מערך התנדבות</h3>
-                        <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך לצד כוחות השיטור.</p>
+                        <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך.</p>
                     </div>
                     <button class="btn-select">להרשמה להתנדבות</button>
                 </div>
             </div>
         </div>
 
-        <!-- Registration Form Section -->
-        <section id="formSection" class="form-section">
-            <h2 id="formTitle">טופס הרשמה</h2>
-            <form id="registrationForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="trackType" name="trackType" value="">
+        <!-- Registration Container -->
+        <div id="registrationContainer" class="registration-container">
+            
+            <!-- Step 1: Phone Verification -->
+            <div id="stepPhone" class="step-box">
+                <h2 id="step1Title" class="section-header">אימות ראשוני - הרשמה</h2>
+                <div class="form-group">
+                    <label for="initialPhone">מספר טלפון נייד לקבלת קוד אימות *</label>
+                    <input type="tel" id="initialPhone" placeholder="050-0000000">
+                </div>
+                <button type="button" class="btn-action" onclick="sendVerificationCode()">שלח קוד אימות לנייד</button>
+            </div>
+
+            <!-- Step 2: Code Entry -->
+            <div id="stepCode" class="step-box" style="display: none;">
+                <h2 class="section-header">הזנת קוד אימות</h2>
+                <p style="text-align: center; color: #64748b; font-size: 0.95rem;">
+                    קוד אימות נשלח למספר <span id="displaySentPhone" style="font-weight: bold; color: var(--police-blue);"></span>
+                </p>
+
+                <!-- Simulating SMS Box for testing -->
+                <div id="smsSimulationBox" class="otp-display"></div>
 
                 <div class="form-group">
-                    <label for="fullName">שם מלא *</label>
-                    <input type="text" id="fullName" required placeholder="ישראל ישראלי">
+                    <label for="inputCode">הכנס את הקוד בן 4 הספרות *</label>
+                    <input type="text" id="inputCode" maxlength="4" placeholder="1234" style="text-align: center; font-size: 1.3rem; letter-spacing: 5px;">
                 </div>
+                <button type="button" class="btn-action" onclick="verifyCode()">אמת קוד והמשך להרשמה</button>
+            </div>
 
-                <div class="form-group">
-                    <label for="phone">מספר טלפון *</label>
-                    <input type="tel" id="phone" required placeholder="050-0000000">
-                </div>
+            <!-- Step 3: Full Registration Form -->
+            <div id="stepForm" style="display: none;">
+                <h2 id="formTitle" class="section-header">טופס הרשמה מלא</h2>
+                <form id="registrationForm" onsubmit="handleFormSubmit(event)">
+                    <input type="hidden" id="trackType" name="trackType" value="">
+                    <input type="hidden" id="verifiedPhone" name="verifiedPhone" value="">
 
-                <div class="form-group">
-                    <label for="city">עיר מגורים *</label>
-                    <input type="text" id="city" required placeholder="נתיבות / יישוב בסביבה">
-                </div>
+                    <div class="form-group">
+                        <label for="fullName">שם מלא *</label>
+                        <input type="text" id="fullName" required placeholder="ישראל ישראלי">
+                    </div>
 
-                <div class="form-group">
-                    <label for="idNumber">מספר תעודת זהות</label>
-                    <input type="text" id="idNumber" placeholder="9 ספרות">
-                </div>
+                    <div class="form-group">
+                        <label for="city">עיר מגורים *</label>
+                        <input type="text" id="city" required placeholder="נתיבות / יישוב בסביבה">
+                    </div>
 
-                <div class="form-group">
-                    <label for="resumeFile">העלאת קורות חיים (CV) *</label>
-                    <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" required>
-                </div>
+                    <div class="form-group">
+                        <label for="idNumber">מספר תעודת זהות *</label>
+                        <input type="text" id="idNumber" required placeholder="9 ספרות">
+                    </div>
 
-                <div class="form-group">
-                    <label for="notes">הערות / ניסיון קודם</label>
-                    <textarea id="notes" rows="3" placeholder="פרט בקצרה על ניסיון צבאי/משטרתי/אחר..."></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="resumeFile">העלאת קורות חיים (CV) *</label>
+                        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" required>
+                    </div>
 
-                <button type="submit" class="btn-submit">שלח מועמדות</button>
-            </form>
-        </section>
+                    <div class="form-group">
+                        <label for="notes">הערות / ניסיון קודם</label>
+                        <textarea id="notes" rows="3" placeholder="פרט בקצרה על ניסיון צבאי/משטרתי/אחר..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-action btn-submit">שלח מועמדות למשטרת נתיבות</button>
+                </form>
+            </div>
+
+        </div>
 
         <!-- Admin Access Toggle -->
         <div class="admin-toggle">
@@ -537,30 +587,69 @@
         </a>
     </div>
 
-    <!-- Footer - ללא קרדיט -->
+    <!-- Footer -->
     <footer>
         <div>© כל הזכויות שמורות - משטרת ישראל | תחנת נתיבות</div>
     </footer>
 
     <script>
-        function openForm(track) {
-            const formSection = document.getElementById('formSection');
-            const formTitle = document.getElementById('formTitle');
-            const trackInput = document.getElementById('trackType');
+        let generatedCode = null;
+        let selectedTrack = '';
 
-            trackInput.value = track;
-            formTitle.innerText = 'טופס הרשמה - מסלול ' + track;
-            formSection.style.display = 'block';
+        function startRegistration(track) {
+            selectedTrack = track;
+            document.getElementById('trackType').value = track;
+            document.getElementById('step1Title').innerText = 'אימות נייד ראשוני - מסלול ' + track;
+            
+            // Show container & Step 1, hide Step 2 & Step 3
+            document.getElementById('registrationContainer').style.display = 'block';
+            document.getElementById('stepPhone').style.display = 'block';
+            document.getElementById('stepCode').style.display = 'none';
+            document.getElementById('stepForm').style.display = 'none';
 
-            formSection.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('registrationContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function sendVerificationCode() {
+            const phoneInput = document.getElementById('initialPhone').value.trim();
+            if (!phoneInput || phoneInput.length < 9) {
+                alert('אנא הזן מספר טלפון נייד תקין');
+                return;
+            }
+
+            // Generate random 4-digit code
+            generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
+
+            // Display in step 2
+            document.getElementById('displaySentPhone').innerText = phoneInput;
+            document.getElementById('verifiedPhone').value = phoneInput;
+
+            // Simulating SMS output
+            document.getElementById('smsSimulationBox').innerHTML = `📲 קוד האימות שנשלח אלייך להרשמה למשטרת נתיבות הוא: <br><span style="font-size:1.4rem; letter-spacing:3px;">${generatedCode}</span>`;
+
+            // Switch steps
+            document.getElementById('stepPhone').style.display = 'none';
+            document.getElementById('stepCode').style.display = 'block';
+        }
+
+        function verifyCode() {
+            const userCode = document.getElementById('inputCode').value.trim();
+            if (userCode === generatedCode) {
+                alert('הקוד אומת בהצלחה! כעת תוכל למלא את פרטייך.');
+                document.getElementById('stepCode').style.display = 'none';
+                document.getElementById('stepForm').style.display = 'block';
+                document.getElementById('formTitle').innerText = 'טופס הרשמה מלא - מסלול ' + selectedTrack;
+            } else {
+                alert('קוד אימות שגוי. נסה שנית.');
+            }
         }
 
         function handleFormSubmit(event) {
             event.preventDefault();
 
             const track = document.getElementById('trackType').value;
+            const phone = document.getElementById('verifiedPhone').value;
             const fullName = document.getElementById('fullName').value;
-            const phone = document.getElementById('phone').value;
             const city = document.getElementById('city').value;
             const idNumber = document.getElementById('idNumber').value;
             const fileInput = document.getElementById('resumeFile');
@@ -576,7 +665,7 @@
 
             alert('בקשתך נקלטה בהצלחה! נציג משטרת נתיבות יצור עמך קשר בהקדם.');
             document.getElementById('registrationForm').reset();
-            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('registrationContainer').style.display = 'none';
         }
 
         function showAdminLogin() {
