@@ -40,6 +40,32 @@
             border-bottom: 4px solid var(--police-gold);
         }
 
+        /* כפתור בית בצד שמאל למעלה */
+        .home-icon-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .home-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
         .header-brand {
             display: flex;
             align-items: center;
@@ -372,6 +398,22 @@
             color: white;
         }
 
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+
         .btn-export {
             background-color: #0284c7;
             color: white;
@@ -394,6 +436,12 @@
         }
 
         @media (max-width: 600px) {
+            .home-icon-btn {
+                top: 10px;
+                left: 10px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
             .header-brand {
                 flex-direction: column;
                 gap: 8px;
@@ -412,6 +460,12 @@
 <body>
 
     <header>
+        <!-- כפתור בית בצד שמאל למעלה -->
+        <a href="#" class="home-icon-btn" onclick="goHome(event)">
+            <span>🏠</span>
+            <span>בית</span>
+        </a>
+
         <div class="header-brand">
             <div class="police-logo-wrapper">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Israel_Police_Logo.svg/240px-Israel_Police_Logo.svg.png" 
@@ -495,7 +549,6 @@
                     קוד אימות נשלח למספר <span id="displaySentPhone" style="font-weight: bold; color: var(--police-blue);"></span>
                 </p>
 
-                <!-- Simulating SMS Box for testing -->
                 <div id="smsSimulationBox" class="otp-display"></div>
 
                 <div class="form-group">
@@ -551,7 +604,7 @@
         <!-- Admin Area -->
         <div id="adminSection" class="admin-section">
             <h2>אזור ניהול - פניות נרשמים</h2>
-            <p style="margin-bottom: 1rem; color: #64748b;">כל הפניות שנשלחו במערכת שמורות בלשונית זו.</p>
+            <p style="margin-bottom: 1rem; color: #64748b;">כל הפניות שנשלחו במערכת שמורות בלשונית זו. באפשרותך למחוק מועמדים לא רלוונטיים.</p>
             <button class="btn-export" onclick="exportToCSV()">ייצוא ל-Google Sheets / Excel (CSV)</button>
             
             <div class="admin-table-wrapper">
@@ -566,6 +619,7 @@
                             <th>ת"ז</th>
                             <th>קובץ CV</th>
                             <th>הערות</th>
+                            <th>פעולות</th>
                         </tr>
                     </thead>
                     <tbody id="leadsTableBody">
@@ -596,12 +650,20 @@
         let generatedCode = null;
         let selectedTrack = '';
 
+        // פונקציית חזרה לדף הבית
+        function goHome(event) {
+            if (event) event.preventDefault();
+            document.getElementById('registrationContainer').style.display = 'none';
+            document.getElementById('adminSection').style.display = 'none';
+            document.getElementById('registrationForm').reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function startRegistration(track) {
             selectedTrack = track;
             document.getElementById('trackType').value = track;
             document.getElementById('step1Title').innerText = 'אימות נייד ראשוני - מסלול ' + track;
             
-            // Show container & Step 1, hide Step 2 & Step 3
             document.getElementById('registrationContainer').style.display = 'block';
             document.getElementById('stepPhone').style.display = 'block';
             document.getElementById('stepCode').style.display = 'none';
@@ -617,17 +679,13 @@
                 return;
             }
 
-            // Generate random 4-digit code
             generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
 
-            // Display in step 2
             document.getElementById('displaySentPhone').innerText = phoneInput;
             document.getElementById('verifiedPhone').value = phoneInput;
 
-            // Simulating SMS output
             document.getElementById('smsSimulationBox').innerHTML = `📲 קוד האימות שנשלח אלייך להרשמה למשטרת נתיבות הוא: <br><span style="font-size:1.4rem; letter-spacing:3px;">${generatedCode}</span>`;
 
-            // Switch steps
             document.getElementById('stepPhone').style.display = 'none';
             document.getElementById('stepCode').style.display = 'block';
         }
@@ -657,7 +715,7 @@
             const notes = document.getElementById('notes').value;
             const date = new Date().toLocaleDateString('he-IL') + ' ' + new Date().toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'});
 
-            const newLead = { date, track, fullName, phone, city, idNumber, fileName, notes };
+            const newLead = { id: Date.now(), date, track, fullName, phone, city, idNumber, fileName, notes };
 
             let leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
             leads.push(newLead);
@@ -687,11 +745,11 @@
             const leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
 
             if (leads.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">אין פניות עדיין</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">אין פניות עדיין</td></tr>';
                 return;
             }
 
-            leads.forEach(lead => {
+            leads.forEach((lead, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${lead.date}</td>
@@ -702,9 +760,24 @@
                     <td>${lead.idNumber || '-'}</td>
                     <td>📂 ${lead.fileName}</td>
                     <td>${lead.notes || '-'}</td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteLead(${index})">🗑️ מחק</button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        // פונקציית מחיקת מועמד לאלתר
+        function deleteLead(index) {
+            let leads = JSON.parse(localStorage.getItem('police_netivot_leads') || '[]');
+            const leadName = leads[index] ? leads[index].fullName : 'מועמד זה';
+
+            if (confirm(`האם אתה בטוח שברצונך למחוק לאלתר את ${leadName}?`)) {
+                leads.splice(index, 1);
+                localStorage.setItem('police_netivot_leads', JSON.stringify(leads));
+                loadAdminData();
+            }
         }
 
         function exportToCSV() {
