@@ -29,14 +29,14 @@
             padding-bottom: 90px;
         }
 
-        /* Header */
+        /* Header - תמונת רקע מבצעית כהה */
         header {
             position: relative;
-            background: linear-gradient(rgba(0, 43, 73, 0.88), rgba(0, 21, 40, 0.92)), 
-                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
+            background: linear-gradient(rgba(0, 20, 35, 0.85), rgba(0, 10, 20, 0.92)), 
+                        url('header-bg.jpg') center/cover no-repeat;
             color: white;
             text-align: center;
-            padding: 3.5rem 1rem 2.5rem;
+            padding: 4rem 1rem 3rem;
             border-bottom: 4px solid var(--police-gold);
         }
 
@@ -63,14 +63,14 @@
         header h1 {
             font-size: 2.3rem;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
             margin: 0;
         }
 
         header p {
             font-size: 1.25rem;
             color: #e2e8f0;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
 
         /* Container */
@@ -151,7 +151,7 @@
 
         .card-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
 
@@ -359,21 +359,14 @@
             margin-bottom: 1rem;
         }
 
-        /* Footer */
+        /* Footer - ללא קרדיט ירדן צח */
         footer {
             margin-top: 3rem;
             padding: 1.5rem 1rem;
             background-color: #0f172a;
             color: #94a3b8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             font-size: 0.85rem;
-        }
-
-        .credit {
-            color: #64748b;
-            font-size: 0.8rem;
         }
 
         @media (max-width: 600px) {
@@ -435,23 +428,25 @@
 
         <!-- Options Cards -->
         <div class="options-grid">
+            <!-- כרטיס גיוס קבע - שוטר בלמידה/קורס אקדמי -->
             <div class="option-card" onclick="openForm('קבע')">
-                <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=600" alt="שירות קבע" class="card-img">
+                <img src="recruitment.jpg" alt="גיוס לשירות קבע - קורס והכשרה" class="card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600';">
                 <div class="card-body">
                     <div>
                         <h3>גיוס לשירות קבע</h3>
-                        <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי ותרומה ישירה לביטחון המדינה.</p>
+                        <p>הצטרפות למערך המקצועי המבצעי של תחנת נתיבות. קריירה מאתגרת עם יציבות, פיתוח אישי, קורסים מתקדמים ותרומה ישירה לביטחון המדינה.</p>
                     </div>
                     <button class="btn-select">להרשמה לגיוס קבע</button>
                 </div>
             </div>
 
+            <!-- כרטיס התנדבות - מתנדב שמח ודומיננטי במרכז שוטרים -->
             <div class="option-card" onclick="openForm('התנדבות')">
-                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600" alt="מערך התנדבות" class="card-img">
+                <img src="volunteer.jpg" alt="הצטרפות למערך ההתנדבות" class="card-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600';">
                 <div class="card-body">
                     <div>
                         <h3>הצטרפות להקמת מערך התנדבות</h3>
-                        <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך.</p>
+                        <p>היה חלק ממערך המתנדבים האיכותי: סיור, מתמי"ד, יחידות ג'יפים וצוותי תגובה מהירה. הגן על הבית והקהילה שלך לצד כוחות השיטור.</p>
                     </div>
                     <button class="btn-select">להרשמה להתנדבות</button>
                 </div>
@@ -542,10 +537,9 @@
         </a>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer - ללא קרדיט -->
     <footer>
         <div>© כל הזכויות שמורות - משטרת ישראל | תחנת נתיבות</div>
-        <div class="credit">ירדן צח</div>
     </footer>
 
     <script>
